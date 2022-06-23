@@ -1,15 +1,15 @@
-import { CardLessons } from "../../components/CardLessons"
 import { Header } from "../../components/Header"
 import { Sidebar } from "../../components/Sidebar"
 import { Video } from "../../components/Video"
 
 export const Evento = () => {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Header />
-            {/* <Sidebar />
-            <Video />
-            <CardLessons /> */}
+            <main className="flex flex-1">
+                <Video />
+                <Sidebar />
+            </main>
         </div>
     )
 }
