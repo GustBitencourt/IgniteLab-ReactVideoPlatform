@@ -1,15 +1,56 @@
+import { gql, useQuery } from "@apollo/client";
 import { DefaultUi, Player, Youtube } from "@vime/react"
 import { CaretRight, DiscordLogo, FileArrowDown, Image, Lightning } from "phosphor-react"
 
 import '@vime/core/themes/default.css';
 
-export const Video = () => {
+const GET_LESSONS_BY_SLUG_QUERY = gql`
+    query GetLessonBySlug ($slug: String) {
+        lesson(where: {slug: $slug}) {
+            title
+            videoId
+            description
+            teacher {
+            bio
+            avatarURL
+            name
+            }
+        }
+    }
+`;
+
+interface GetLessonsBySlugResponse {
+    lesson: {
+        title: string;
+        videoId: string;
+        description: string;
+        teacher: {
+            bio: string;
+            avatarURL: string;
+            name: string;
+        }
+    }
+}
+
+interface VideoProps {
+    lessonSlug: string;
+}
+
+export const Video = (props: VideoProps) => {
+    //chamando dados de uma unica aula, através do seu slug, utilizando query acima
+    const { data } = useQuery(GET_LESSONS_BY_SLUG_QUERY, {
+        variables: {
+            slug: props.lessonSlug
+        }
+    })
+
+
     return (
         <div className="flex-1">
             <div className="bg-black flex justify-center">
                 <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
                     <Player>
-                        <Youtube videoId="SO4-izct7Mc"/>
+                        <Youtube videoId="SO4-izct7Mc" />
                         <DefaultUi />
                     </Player>
                 </div>
@@ -28,7 +69,7 @@ export const Video = () => {
                         </p>
 
                         <div className="flex items-center gap-4 mt-6">
-                            <img 
+                            <img
                                 className="h-16 w-16 rounded-full border-2 border-blue-500"
                                 src="https://github.com/GustBitencourt.png"
                                 alt="Gustavo Bitencourt"

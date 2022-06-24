@@ -1,10 +1,12 @@
-import { gql, useQuery } from "@apollo/client"
-import { Evento } from "./pages/Evento"
+import { BrowserRouter } from "react-router-dom"
+import { Router } from "./routes"
 
 function App() {
 
   return (
-    <Evento />
+    <BrowserRouter>
+      <Router />    
+    </BrowserRouter>
   )
 }
 
